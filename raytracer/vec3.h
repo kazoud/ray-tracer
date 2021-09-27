@@ -119,12 +119,33 @@ public:
 	{
 		return v / v.length();
 	}
+
+	inline static vec3 random()
+	{
+		return vec3(random_double(), random_double(), random_double());
+	}
+
+	inline static vec3 random(double min, double max)
+	{
+		return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
+	}
+
 };
 
 inline std::ostream& operator<<(std::ostream& out, const vec3& vec)
 {
 	out << vec.e[0] << " " << vec.e[1] << " " << vec.e[2];
 	return out;
+}
+
+vec3 random_in_unit_sphere()
+{
+	while (true)
+	{
+		auto p = vec3::random(-1, 1);
+		if (p.length_squared() >= 1) continue;
+		return p;
+	}
 }
 
 // Type aliases for vec3
