@@ -130,6 +130,12 @@ public:
 		return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
 	}
 
+	bool near_zero() const
+	{
+		const double s = 1e-8;
+		return(fabs(e[0]) < s) && (fabs(e[1]) < s) && fabs(e[2] < s);
+	}
+
 };
 
 inline std::ostream& operator<<(std::ostream& out, const vec3& vec)
@@ -146,6 +152,16 @@ vec3 random_in_unit_sphere()
 		if (p.length_squared() >= 1) continue;
 		return p;
 	}
+}
+
+vec3 random_unit_vector()
+{
+	return unit_vector(random_in_unit_sphere());
+}
+
+vec3 reflect(const vec3& v, const vec3& n)
+{
+	return v - 2 * dot(v, n) * n;
 }
 
 // Type aliases for vec3
